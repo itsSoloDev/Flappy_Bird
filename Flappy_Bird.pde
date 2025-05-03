@@ -36,7 +36,7 @@ void setup() {
   menuBackground = loadImage("main-menu.jpg");
   textFont(arcadeFont);
   
-  soundFile = new SoundFile(this, "extremeaction.wav");
+  soundFile = new SoundFile(this, "extremeaction.mp3");
   flapSound = new SoundFile(this, "flapSound.mp3");
   crashSound = new SoundFile(this, "crashSound.mp3");
   if (soundOn) {
