@@ -206,10 +206,13 @@ void draw() {
   } else if (gameState.equals("Play")) {
     background(game.getBackground());
     game.show();
+
     if(!game.paused){
       game.update();
     }
     if (game.paused) {
+    rectMode(CORNER); // Top-left origin, default mode
+
     fill(0, 0, 0, 150); // Transparent black overlay
     rect(0, 0, width, height);
 
@@ -256,10 +259,6 @@ void drawMenu() {
   fill(255);
   text("Click to select", width/2, height - 40);
 }
-
-
-
-
 
 
 void drawButton(float centerX, float centerY, float w, float h, String label) {

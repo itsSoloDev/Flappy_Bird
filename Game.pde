@@ -15,7 +15,6 @@ class Game {
   private boolean paused = false;
 
 
-
   public Game() {
     background = loadImage("flappy-bird-background.png");
     ground = new Ground();
@@ -89,7 +88,10 @@ class Game {
   //used to update the position of image in the game window
   public void update() {
     ground.update();
+  
 
+    
+    
     if(active){
       bird.update();
       if (bird.getY() >= 612) {
