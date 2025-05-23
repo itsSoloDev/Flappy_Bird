@@ -45,23 +45,37 @@ class Pipe{
 //  return false;
 //}
 
-
 public boolean touching(Bird bird) {
-  float birdX = bird.getX();
-  float birdY = bird.getY();
-  float birdWidth = 45;
-  float birdHeight = 34;
-  float pipeWidth = 80;
-  float gap = 200;
+  float birdRadius = 20; // Half of bird size
 
-  // Check horizontal overlap
-  if (birdX + birdWidth > x && birdX < x + pipeWidth) {
-    // Check vertical collision with top pipe or bottom pipe
-    if (birdY < y - gap || birdY + birdHeight > y) {
-      return true;
-    }
-  }
-  return false;
+  // Pipe collision X
+  boolean inPipeX = bird.getX() + birdRadius > x && bird.getX() - birdRadius < x + 80;
+
+  // Pipe collision Y (top and bottom pipe)
+  boolean inTopPipe = bird.getY() - birdRadius < y - 224;
+  boolean inBottomPipe = bird.getY() + birdRadius > y;
+
+  return inPipeX && (inTopPipe || inBottomPipe);
 }
+
+
+
+//public boolean touching(Bird bird) {
+//  float birdX = bird.getX();
+//  float birdY = bird.getY();
+//  float birdWidth = 45;
+//  float birdHeight = 34;
+//  float pipeWidth = 80;
+//  float gap = 200;
+
+//  // Check horizontal overlap
+//  if (birdX + birdWidth > x && birdX < x + pipeWidth) {
+//    // Check vertical collision with top pipe or bottom pipe
+//    if (birdY < y - gap || birdY + birdHeight > y) {
+//      return true;
+//    }
+//  }
+//  return false;
+//}
 
 }
