@@ -12,6 +12,7 @@ SQLite db;
 SoundFile soundFile;
 SoundFile flapSound;
 SoundFile crashSound;
+SoundFile clickSound;
 PFont arcadeFont;
 PImage menuBackground;
 PFont nameFont;
@@ -39,9 +40,11 @@ void setup() {
   soundFile = new SoundFile(this, "extremeaction.mp3");
   flapSound = new SoundFile(this, "flapSound.mp3");
   crashSound = new SoundFile(this, "crashSound.mp3");
+  clickSound = new SoundFile(this, "clickSound.mp3");
   if (soundOn) {
   soundFile.loop();
   soundFile.amp(0.3);
+  clickSound.amp(1.0);
 }
 
   
@@ -359,17 +362,22 @@ void keyPressed() {
 
 void mousePressed() {
   if (gameState.equals("menu")) {
+    
     if (overButton(width/2, 200, 250, 60)) {
+      clickSound.play();
       gameState = "Play"; // START
     } else if (overButton(width/2, 300, 250, 60)) {
+      clickSound.play();
       gameState = "Settings"; // SETTINGS
     } else if (overButton(width/2, 400, 250, 60)) {
       exit(); // QUIT
     } else if (overButton(width/2, 500, 250, 60)) {
       gameState = "HighScore"; // HIGH SCORE
+      clickSound.play();
     }
   } else if (gameState.equals("HighScore")) {
     gameState = "menu"; // Go back to menu on click
+    clickSound.play();
   }
 }
 
