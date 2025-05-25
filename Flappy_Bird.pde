@@ -1,6 +1,5 @@
 import de.bezier.data.sql.*;
 import de.bezier.data.sql.mapper.*;
-
 import processing.sound.*;
 import javax.swing.JOptionPane;
 import de.bezier.data.sql.SQLite;
@@ -26,7 +25,6 @@ boolean soundOn = true;
 String username = "";
 boolean askingName = true;
 boolean scoreSaved = false;
-
 void setup() {
   size(400, 719);
   game = new Game();
@@ -36,7 +34,6 @@ void setup() {
   settingsFont = createFont("Lucida Console", 36);
   menuBackground = loadImage("main-menu.jpg");
   textFont(arcadeFont);
-  
   soundFile = new SoundFile(this, "extremeaction.mp3");
   flapSound = new SoundFile(this, "flapSound.mp3");
   crashSound = new SoundFile(this, "crashSound.mp3");
@@ -46,8 +43,6 @@ void setup() {
   soundFile.amp(0.3);
   clickSound.amp(1.0);
 }
-
-  
    if (db.connect()) {
     String createTable = 
       "CREATE TABLE IF NOT EXISTS flappy_scores (" +
@@ -71,18 +66,15 @@ void saveScore(String playerName, int score) {
     println("DB connection failed during save.");
     return;
   }
-
   // Escape any single quotes inside player name to avoid SQL injection errors
   playerName = playerName.replace("'", "''");
-
   // Check if player already exists
   db.query("SELECT * FROM flappy_scores WHERE player_name = '" + playerName + "'");
-
   if (db.next()) {
     int existingScore = db.getInt("score");
     if (score > existingScore) {
       // Update the score
-      String updateQuery = "UPDATE flappy_scores SET score = " + score + " WHERE player_name = '" + playerName + "'";
+      String updateQuery = "UPDATE flappy_scores SET score = " + score +  " WHERE player_name = '" + playerName + "'";
       db.execute(updateQuery);
       println("Updated high score for " + playerName + ": " + score);
       JOptionPane.showMessageDialog(null, "🎉 New High Score! 🎮\n" + playerName + ": " + score, "High Score!", JOptionPane.INFORMATION_MESSAGE); 
@@ -97,15 +89,11 @@ void saveScore(String playerName, int score) {
     JOptionPane.showMessageDialog(null, "🎉 Welcome! First Score Saved!\n" + playerName + ": " + score, "Score Saved!", JOptionPane.INFORMATION_MESSAGE);
   }
 }
-
-
-
-
 void showHighScores() {
   if (!db.connect()) return;
-
-  db.query("SELECT player_name, MAX(score) AS score FROM flappy_scores GROUP BY player_name ORDER BY score DESC LIMIT 10");
-
+  db.query("SELECT 
+  player_name, MAX(score) 
+  AS score FROM flappy_scores GROUP BY player_name ORDER BY score DESC LIMIT 10");
   int y = 100;
   textSize(24);
   fill(255);
@@ -150,25 +138,20 @@ void drawHighScoreScreen() {
     y += 50;
     rank++;
   }
-
   // Draw "Back" instruction
   fill(255);
   textSize(16);
   text("Press B to return to Menu", width / 2, height - 50);
 }
-
-
 void drawNameScreen() {
   background(20, 20, 50); // Dark blue arcade feel
 
   textFont(arcadeFont);
   textAlign(CENTER, CENTER);
-
   // "Enter Your Name" title
   fill(255, 255, 0); // Bright yellow
   textSize(24);
   text("ENTER YOUR NAME", width / 2, height / 2 - 120);
-
   // Name input box
   float boxWidth = width * 0.6; // 60% of canvas width
   float boxHeight = 50;
@@ -177,19 +160,15 @@ void drawNameScreen() {
   strokeWeight(3);
   rectMode(CENTER);
   rect(width / 2, height / 2, boxWidth, boxHeight); // Properly sized box
-
   // Username text inside box
   fill(255);
   textSize(20);
   text(username + getBlinkingCursor(), width / 2, height / 2);
-
   // Instruction
   textSize(12);
   fill(200);
   text("Press ENTER when done", width / 2, height / 2 + 100);
 }
-
-
 // Helper to create blinking cursor
 String getBlinkingCursor() {
   if (millis() % 1000 < 500) {
@@ -198,9 +177,6 @@ String getBlinkingCursor() {
     return " ";
   }
 }
-
-
-
 void draw() {
   if (gameState.equals("name")) {
     drawNameScreen();
@@ -215,10 +191,8 @@ void draw() {
     }
     if (game.paused) {
     rectMode(CORNER); // Top-left origin, default mode
-
     fill(0, 0, 0, 150); // Transparent black overlay
     rect(0, 0, width, height);
-
     fill(255); // White text
     textFont(arcadeFont);
     textSize(32);
@@ -236,9 +210,7 @@ void draw() {
   }else if (gameState.equals("HighScore")) {
   drawHighScoreScreen();
 }
-
 }
-
 void drawMenu() {
   background(135, 206, 235);
   image(menuBackground, 0, 0, width, height);
@@ -256,14 +228,11 @@ void drawMenu() {
   drawButton(width/2, 300, 250, 60, "SETTINGS");
   drawButton(width/2, 400, 250, 60, "QUIT");
   drawButton(width/2, 500, 250, 60, "HIGH SCORE");
-
   // Helper text
   textSize(18);
   fill(255);
   text("Click to select", width/2, height - 40);
 }
-
-
 void drawButton(float centerX, float centerY, float w, float h, String label) {
   rectMode(CENTER);
   stroke(0);
@@ -276,8 +245,6 @@ void drawButton(float centerX, float centerY, float w, float h, String label) {
   textSize(24);
   text(label, centerX, centerY); // Text centered exactly
 }
-
-
 void drawSettings() {
   background(50);
   textAlign(CENTER, CENTER);
