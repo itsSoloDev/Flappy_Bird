@@ -1,7 +1,3 @@
-////import java.util.List;
-//import java.util.Map;
-//import java.util.ArrayList;
-
 class Game {
   private PImage background;
   private Ground ground;
@@ -43,12 +39,6 @@ class Game {
           bird.show();
      }
      showScore();
-     //if (paused) {
-     // fill(255, 255, 0);
-     // textAlign(CENTER);
-     // textSize(32);
-     // text("Game Paused", width / 2, height / 2 - 100);
-     // }
     }
   
   public void showScore(){
@@ -89,9 +79,6 @@ class Game {
   public void update() {
     ground.update();
   
-
-    
-    
     if(active){
       bird.update();
       if (bird.getY() >= 612) {

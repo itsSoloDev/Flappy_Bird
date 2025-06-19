@@ -5,11 +5,9 @@ class Bird{
   private float gravity;
   private float velocity;
   
- 
-  
   Bird(){
     bird = loadImage("flappy_bird_icon.png");
-    x = 70;
+    x = 70;    
     y = 80;
     gravity = 0.1;
     velocity = 0;
